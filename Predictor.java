@@ -1,106 +1,46 @@
-//make exceptions
-
 import java.util.*;
 import java.time.*;
 import java.time.format.*;
 
-
+/**
+ * This is the main class. It predicts whether a car has pico y placa.
+ * It ask the user for a plate number, date and time.
+ * @author Marco Jurado M.
+ * @version 1.0
+ */
 public class Predictor {
 
     public static void main(String[] args) {
 
+    	/*Instructions for the user*/
     	System.out.println("Enter the information in this way:");
         System.out.println("[plate number] [date] [time]");
         System.out.println("E.g. PPP1234 DD/MM/YYYY HH:MM");
+        System.out.println("If a value contains 1 digit, please add a 0");
+        System.out.println("in front to match the format. E.g. 1 to 01 in DD");
+
+        
+        /*Receiving the user's information */
         Scanner userInput = new Scanner(System.in);
         String plateNumber = userInput.next();
         String dateStr = userInput.next();
         String timeStr = userInput.next();
-        
-        /*This needs fixing*/ 
-        if(dateStr.length()==9) {
-        	dateStr = "0".concat(dateStr);
-        }
-        
-        if(timeStr.length()==4) {
-        	timeStr = "0".concat(timeStr);
-        }
-        
         userInput.close();
         
+        /*Creating a Car object*/
         Car car = new Car(plateNumber);
         
+        /*Creating an object that will store the point in time given*/
         dateStr = dateStr.concat(" ").concat(timeStr);
-
 		LocalDateTime date = LocalDateTime.parse(dateStr, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
-//		System.out.println(date.getDayOfWeek());
 		
-		if(hasPicoPlaca(car, date)) {
+		/*Evaluating whether a car has Pico y Placa on a given point in time*/
+		if(Toolbox.hasPicoPlaca(car, date)) {
 	        System.out.println("Auto PROHIBIDO de transitar en Quito");
 		}
 		else {
 	        System.out.println("Auto AUTORIZADO para transitar en Quito");
 		}
-		
-    }
-    
-    
-    
-    private static Boolean isPicoPlacaTime(LocalDateTime date) {
-    	
-    	/*Has morning PicoPlaca*/
-    	if(date.getHour()>=7 && date.getHour()<9) {
-    		return Boolean.TRUE;
-    	}	
-    	if(date.getHour()==9 && date.getMinute()<30) {
-			return Boolean.TRUE;
-		}
-    	
-    	/*Has afternoon PicoPlaca*/
-    	if(date.getHour()>=16 && date.getHour()<19) {
-			return Boolean.TRUE;
-    	}
-    	if(date.getHour()==19 && date.getMinute()<30) {
-			return Boolean.TRUE;
-		}
-    	
-    	System.out.println("isPicoPlacaTime = FALSE");
-    	return Boolean.FALSE;
-    	
-    }
-    
-    private static Boolean isPicoPlacaDay(Car car, LocalDateTime date) {
-    	
-		System.out.println("Day of Pico Placa:" + car.getPicoPlacaDay());
-    	if(car.getPicoPlacaDay()==date.getDayOfWeek().toString()) {
-    		return Boolean.TRUE;
-    	}
-    	
-    	System.out.println("isPicoPlacaDay = FALSE");
-    	return Boolean.FALSE;
-    	
-    }
-    
-    private static Boolean hasPicoPlaca(Car car, LocalDateTime date) {
-    	
-    	if(isPicoPlacaDay(car, date) && isPicoPlacaTime(date)) {
-    		return Boolean.TRUE;
-    	}
-    	
-    	return Boolean.FALSE;
-		
-	}
-    
+    }   
 }
-
-
-
-
-
-
-
-
-
-
-
 
