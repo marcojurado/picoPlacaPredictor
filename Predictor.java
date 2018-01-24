@@ -36,10 +36,10 @@ public class Predictor {
 		
 		/*Evaluating whether a car has Pico y Placa on a given point in time*/
 		if(Toolbox.hasPicoPlaca(car, date)) {
-	        System.out.println("Auto PROHIBIDO de transitar en Quito");
+	        System.out.println("The car has pico y placa");
 		}
 		else {
-	        System.out.println("Auto AUTORIZADO para transitar en Quito");
+	        System.out.println("The car does not have pico y placa");
 		}
     }   
 }

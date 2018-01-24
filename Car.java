@@ -14,7 +14,6 @@ public class Car {
 	private static final int FRIDAYPICOPLACA = 9;
 	private static final int FRIDAYPICOPLACA2 = 0;
 
-
 	/*Fields*/
 	
 	/**
