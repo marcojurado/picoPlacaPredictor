@@ -9,6 +9,22 @@ import java.util.Random;
  * */
 public final class DataGenerator {
 	
+	/*Constants*/
+	private static final int ASCIIFORA = 65;
+	private static final int NUMLETTERS = 26;
+	
+	/*28 is chosen instead of 30 or 31 as this would require a per month 
+	 * case day generator and will not give any impact in the tester*/
+	private static final int DAYSINMONTH = 28;
+	
+	private static final int MONTHS = 12;
+	private static final int INITIALYEAR = 1900;
+	private static final int NUMYEARS = 200;
+	private static final int NUMHOURS = 24;
+	private static final int NUMMINUTES = 60;
+	private static final int NUMLETTERSINPLATE = 3;
+
+	
 	/*Constructor*/
 	private DataGenerator() {
 	}
@@ -37,8 +53,8 @@ public final class DataGenerator {
 		char letterChar = '\0';
 		
 		/*Sets the 3 initial random letters of a plate*/
-		while(i<3) {
-			letterNum = rand.nextInt(26)+65;
+		while(i<NUMLETTERSINPLATE) {
+			letterNum = rand.nextInt(NUMLETTERS)+ASCIIFORA;
 			letterChar = (char) letterNum.intValue();
 			plate = plate.concat(String.valueOf(letterChar));
 			i++;
@@ -60,19 +76,19 @@ public final class DataGenerator {
 		Random rand = new Random();
 
 		/*Adds the day*/
-		dateStr = correctFormat(String.valueOf(rand.nextInt(28) + 1));
+		dateStr = correctFormat(String.valueOf(rand.nextInt(DAYSINMONTH) + 1));
 		/*Adds the month*/
 		dateStr = dateStr.concat("/").concat(
-				correctFormat(String.valueOf(rand.nextInt(12) + 1)));
+				correctFormat(String.valueOf(rand.nextInt(MONTHS) + 1)));
 		/*Adds the year (Between 1900 and 2100)*/
 		dateStr = dateStr.concat("/").concat(
-				String.valueOf(rand.nextInt(200) + 1900));
+				String.valueOf(rand.nextInt(NUMYEARS) + INITIALYEAR));
 		/*Adds the hour*/
 		dateStr = dateStr.concat(" ").concat(
-				correctFormat(String.valueOf(rand.nextInt(24))));
+				correctFormat(String.valueOf(rand.nextInt(NUMHOURS))));
 		/*Adds the minutes*/
 		dateStr = dateStr.concat(":").concat(
-				correctFormat(String.valueOf(rand.nextInt(60))));		
+				correctFormat(String.valueOf(rand.nextInt(NUMMINUTES))));		
 
 		return dateStr;
 	}

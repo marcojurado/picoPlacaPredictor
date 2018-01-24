@@ -7,6 +7,20 @@ import java.time.LocalDateTime;
  * */
 public final class Toolbox {
 	
+	/*Constants*/
+	
+	/*The hour numbers relevant in pico y placa*/
+	private static final int STARTSMORNING = 7;
+	private static final int ENDSMORNING = 9;
+	private static final int STARTSAFTERNOON = 16;
+	private static final int ENDSAFTERNOON = 19;
+	
+	/*The number of minutes when pico y placa ends*/
+	private static final int ENDSMINUTES = 30;
+
+
+
+	
 	/*Constructor*/
 	private Toolbox() {
 	}
@@ -21,18 +35,18 @@ public final class Toolbox {
     public static Boolean isPicoPlacaTime(LocalDateTime date) {
     	
     	/*Has morning PicoPlaca*/
-    	if(date.getHour()>=7 && date.getHour()<9) {
+    	if(date.getHour()>=STARTSMORNING && date.getHour()<ENDSMORNING) {
     		return Boolean.TRUE;
     	}	
-    	if(date.getHour()==9 && date.getMinute()<30) {
+    	if(date.getHour()==ENDSMORNING && date.getMinute()<ENDSMINUTES) {
 			return Boolean.TRUE;
 		}
     	
     	/*Has afternoon PicoPlaca*/
-    	if(date.getHour()>=16 && date.getHour()<19) {
+    	if(date.getHour()>=STARTSAFTERNOON && date.getHour()<ENDSAFTERNOON) {
 			return Boolean.TRUE;
     	}
-    	if(date.getHour()==19 && date.getMinute()<30) {
+    	if(date.getHour()==ENDSAFTERNOON && date.getMinute()<ENDSMINUTES) {
 			return Boolean.TRUE;
 		}
     	
